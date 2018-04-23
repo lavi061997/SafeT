@@ -1,0 +1,78 @@
+<ion-header>
+   <ion-toolbar>
+      <ion-title>
+         {{ title }}
+      </ion-title>
+      <ion-buttons start>
+         <button
+            ion-button
+            (click)="closeModal()">
+           <span
+              ion-text
+              color="primary"
+              showWhen="ios">Cancel</span>
+           <ion-icon
+              name="md-close"
+              showWhen="android,windows"></ion-icon>
+         </button>
+      </ion-buttons>
+   </ion-toolbar>
+</ion-header>
+<ion-content>
+    <div *ngIf = "!show">
+    <form [formGroup]="postForm" (ngSubmit)="saveTransaction(postForm.value)">
+      <div class="row">
+        <div class="columns small-12 medium-6">
+        <ion-item  padding-top padding-bottom>
+          <ion-label>receiverId</ion-label>
+            <ion-input type="text" name="receiverId" [formControl]="postForm.controls['receiverId']"></ion-input>
+          <div class="alert" *ngIf="!postForm.controls['receiverId'].valid && postForm.controls['receiverId'].touched">You must specify a receiverId that's at least 15 characters long.</div>
+      </ion-item>
+
+        </div>
+        <div class="columns small-12 medium-6">
+            <ion-item padding-top padding-bottom>
+          <ion-label>Amount</ion-label>
+            <ion-input type="number" name="amount" [formControl]="postForm.controls['amount']"></ion-input>
+          <div class="alert" *ngIf="!postForm.controls['amount'].valid && postForm.controls['amount'].touched">You must specify a amount.</div>
+      </ion-item>
+        </div>
+        </div>
+        <ion-input type="submit" class="cta-btn filled" value="Post" [disabled]="!postForm.valid"></ion-input>
+                   <span
+                      ion-text
+                      color="danger"
+                      block
+                      text-center
+                      padding-top
+                      padding-bottom
+                      padding-left
+                      (click)="selectImage()">Select an image</span>
+                      <ion-input
+                         type="hidden"
+                         name="image"
+                         formControlName="image"
+                         [(ngModel)]="personImage">
+                      <img src="{{personImage}}" *ngIf="personImage" >
+                    </ion-input>
+                    <ion-item  padding-top padding-bottom>
+                      <ion-label>Enter name:</ion-label>
+                        <ion-input type="text" name="myName" [(ngModel)] = "myName"></ion-input>
+                  </ion-item>
+            
+    </form>
+</div>
+<div *ngIf = "show">
+    <h3>
+        Transaction Completed
+    </h3>
+</div>
+
+<div *ngIf='info'>
+    <h3>Confidence Score(>0.7):</h3>
+    <h4>{{info['images'][0]['transaction']['confidence'] | json}}</h4>
+
+    <button ion-button name="Transaction" (click) = "showPara()">Complete Transaction</button>
+</div>
+
+</ion-content>

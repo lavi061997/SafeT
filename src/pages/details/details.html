@@ -1,0 +1,28 @@
+
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>
+        Details
+    </ion-title>
+    <ion-buttons end>
+        <button ion-button icon-start (click)="addRecord()" class="btn-txt">
+          <ion-icon name="add"></ion-icon>
+        </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <h4 style="margin:0 auto;text-align: center;">Minimum 4 images recommended!</h4>
+    <ion-card>
+    <button ion-button color="secondary" (click)="getImage()">Capture Image</button>
+    <br>
+    <h4 class="preview">Image Preview</h4>
+    <ion-item  padding-top padding-bottom>
+      <ion-label>Enter name:</ion-label>
+        <ion-input type="text" name="myName" [(ngModel)] = "myName"></ion-input>
+    </ion-item>
+</ion-card>
+<img src="{{base64Image}}" *ngIf="base64Image" alt="Ionic File" width="300" />
+
+</ion-content>
